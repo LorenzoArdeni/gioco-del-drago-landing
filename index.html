@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Il Gioco del Drago — In arrivo</title>
+<meta name="description" content="Il party game che rovinerà le vostre serate. In arrivo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #000000;
+    --neon-green: #39FF14;
+    --neon-green-dim: #1f8f0c;
+    --gold: #C9A227;
+    --gold-dim: #8a6d1a;
+    --text: #F5F5F0;
+    --text-dim: rgba(245, 245, 240, 0.65);
+    --card-bg: rgba(255, 255, 255, 0.035);
+    --card-border: rgba(57, 255, 20, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+  }
+
+  body {
+    position: relative;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100svh;
+    padding: 32px 20px 40px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(57, 255, 20, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57, 255, 20, 0.055) 1px, transparent 1px);
+    background-size: 42px 42px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 0%, transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140vw;
+    height: 60vh;
+    background: radial-gradient(ellipse closest-side, rgba(57, 255, 20, 0.10), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo {
+    width: min(78vw, 300px);
+    height: auto;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 16px rgba(57, 255, 20, 0.45)) drop-shadow(0 0 40px rgba(57, 255, 20, 0.2));
+  }
+
+  .studio-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    opacity: 0.9;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: clamp(28px, 8vw, 40px);
+    line-height: 1.15;
+    margin: 0 0 18px;
+    color: var(--text);
+    text-shadow:
+      0 0 14px rgba(57, 255, 20, 0.55),
+      0 0 40px rgba(57, 255, 20, 0.25);
+  }
+
+  h1 .accent {
+    color: var(--neon-green);
+  }
+
+  .subcopy {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--text-dim);
+    max-width: 400px;
+    margin: 0 0 32px;
+  }
+
+  .subcopy strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  form {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+  }
+
+  .field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input[type="email"] {
+    width: 100%;
+    padding: 16px 16px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  input[type="email"]::placeholder {
+    color: rgba(245, 245, 240, 0.35);
+  }
+
+  input[type="email"]:focus {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.15);
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+    color: #000000;
+    background: var(--neon-green);
+    border: 1px solid var(--neon-green);
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 22px rgba(57, 255, 20, 0.45);
+    animation: pulse 2.6s ease-in-out infinite;
+    transition: transform 0.12s ease;
+  }
+
+  button[type="submit"]:active {
+    transform: scale(0.97);
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 22px rgba(57, 255, 20, 0.45); }
+    50% { box-shadow: 0 0 34px rgba(57, 255, 20, 0.75); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    button[type="submit"] { animation: none; }
+  }
+
+  .disclaimer {
+    font-size: 11.5px;
+    color: rgba(245, 245, 240, 0.35);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  #thankyou {
+    display: none;
+    width: 100%;
+    max-width: 380px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  #thankyou .icon { font-size: 34px; margin-bottom: 10px; }
+  #thankyou h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: var(--neon-green);
+    margin: 0 0 8px;
+  }
+  #thankyou p {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .socials {
+    display: flex;
+    gap: 18px;
+    margin-top: 32px;
+  }
+
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(201, 162, 39, 0.4);
+    color: var(--gold);
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .social-btn:active {
+    transform: scale(0.94);
+  }
+
+  .social-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  footer {
+    margin-top: 40px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(245, 245, 240, 0.3);
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <img src="logo.png" alt="Il Gioco del Drago" class="logo">
+    <div class="studio-tag">Golden Mead Studio</div>
+
+    <h1>Il gioco che <span class="accent">rovinerà</span><br>le vostre serate arriva questa estate.</h1>
+
+    <p class="subcopy">
+      Un party game per il tuo gruppo. <strong>Sfide, pegni, e un tabellone che non perdona.</strong>
+      Lascia la tua email: sarai il primo a sapere quando "Il Gioco del Drago" sarà scaricabile.
+    </p>
+
+    <!-- ============================================================
+         FORM MAILCHIMP
+         Sostituisci i due placeholder qui sotto con i tuoi dati Mailchimp
+         (istruzioni complete nella chat, sezione "Setup Mailchimp")
+         ============================================================ -->
+    <form
+      id="signup-form"
+      action="https://gmail.us2.list-manage.com/subscribe/post?u=f2c5899ac46996ae77023f5a2&amp;id=7fa3b6779a&amp;f_id=0044c2e1f0"
+      method="post"
+      target="_blank"
+      novalidate
+    >
+      <div class="field-row">
+        <input
+          type="email"
+          name="EMAIL"
+          id="email-input"
+          placeholder="La tua email"
+          required
+          autocomplete="email"
+          inputmode="email"
+          autocapitalize="off"
+          autocorrect="off"
+        >
+      </div>
+
+      <!-- Campo anti-spam richiesto da Mailchimp: NON toccare, sostituisci solo il name -->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true">
+        <input type="text" name="b_f2c5899ac46996ae77023f5a2_7fa3b6779a" tabindex="-1" value="">
+      </div>
+
+      <button type="submit">Avvisami al lancio 🐉</button>
+      <p class="disclaimer">Niente spam. Solo l'avviso quando il gioco è pronto.</p>
+    </form>
+
+    <div id="thankyou">
+      <div class="icon">🔥</div>
+      <h2>Sei dentro.</h2>
+      <p>Ti scriveremo appena il drago sarà pronto a uscire dalla tana.</p>
+    </div>
+
+    <div class="socials">
+      <a class="social-btn" href="https://www.instagram.com/goldenmeadstudio/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.25.07 1.63.07 4.81s-.01 3.56-.07 4.81c-.15 3.23-1.66 4.77-4.92 4.92-1.25.06-1.62.07-4.85.07s-3.6-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.16 15.56 2.15 15.19 2.15 12s.01-3.56.07-4.81C2.37 3.96 3.88 2.42 7.15 2.27 8.4 2.21 8.78 2.2 12 2.2zm0 1.8c-3.17 0-3.55.01-4.79.07-2.32.1-3.4 1.19-3.5 3.5-.06 1.24-.07 1.61-.07 4.79s.01 3.55.07 4.79c.1 2.32 1.18 3.4 3.5 3.5 1.24.06 1.62.07 4.79.07s3.55-.01 4.79-.07c2.32-.1 3.4-1.19 3.5-3.5.06-1.24.07-1.61.07-4.79s-.01-3.55-.07-4.79c-.1-2.32-1.19-3.4-3.5-3.5-1.24-.06-1.62-.07-4.79-.07zm0 3.13a5.87 5.87 0 1 1 0 11.74 5.87 5.87 0 0 1 0-11.74zm0 1.8a4.07 4.07 0 1 0 0 8.14 4.07 4.07 0 0 0 0-8.14zm6.1-1.98a1.37 1.37 0 1 1-2.74 0 1.37 1.37 0 0 1 2.74 0z"/></svg>
+      </a>
+      <a class="social-btn" href="https://whatsapp.com/channel/0029VbDV0af0Vyc9n6906G2C" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 0 0 4.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm0 18.2h-.01a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.13.82.84-3.05-.2-.32a8.23 8.23 0 0 1-1.26-4.4c0-4.55 3.7-8.25 8.26-8.25a8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.42 5.83c0 4.55-3.7 8.28-8.25 8.28zm4.53-6.19c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.41 1.02 2.58.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+      </a>
+    </div>
+
+    <footer>Il Gioco del Drago — 2026</footer>
+  </div>
+
+<script>
+  const form = document.getElementById('signup-form');
+  const thankyou = document.getElementById('thankyou');
+  const emailInput = document.getElementById('email-input');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      emailInput.focus();
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors',
+    }).catch(function () {
+      // Con no-cors non possiamo leggere l'esito reale: ignoriamo eventuali errori silenziosi.
+    });
+
+    form.style.display = 'none';
+    thankyou.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
